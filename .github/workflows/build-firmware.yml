@@ -6,7 +6,7 @@ on:
       openwrt_ref:
         description: OpenWrt tag or branch
         required: false
-        default: v25.12.4
+        default: v25.12.6
       keep_build_dir_cache:
         description: Cache build_dir and staging_dir too
         required: false
@@ -46,7 +46,7 @@ jobs:
     environment: firmware-build
     timeout-minutes: 360
     env:
-      OPENWRT_REF: ${{ inputs.openwrt_ref || 'v25.12.4' }}
+      OPENWRT_REF: ${{ inputs.openwrt_ref || 'v25.12.6' }}
       KEEP_BUILD_DIR_CACHE: ${{ inputs.keep_build_dir_cache && '1' || '0' }}
       JOBS: ${{ vars.OPENWRT_BUILD_JOBS || '' }}
     steps:
