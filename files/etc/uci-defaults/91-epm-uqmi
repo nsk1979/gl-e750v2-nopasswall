@@ -1,0 +1,9 @@
+#!/bin/sh
+uci -q batch <<'EOF'
+set epm.epm.apdu_backend='uqmi'
+set epm.epm.qmi_device='/dev/cdc-wdm0'
+set epm.epm.qmi_sim_slot='1'
+set epm.epm.http_backend='curl'
+commit epm
+EOF
+exit 0
