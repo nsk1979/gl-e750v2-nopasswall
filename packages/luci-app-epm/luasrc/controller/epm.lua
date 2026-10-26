@@ -134,7 +134,7 @@ function epm_connectivity_check()
 end
 
 function epm_status()
-    local result, error_msg = exec_lpac_command("chip info", 5)  -- 5s for "lpac chip info"
+    local result, error_msg = exec_lpac_command("chip info", 60)  -- 5s for "lpac chip info"
 
     if not result then
         luci.http.prepare_content("application/json")
@@ -166,7 +166,7 @@ function epm_status()
 end
 
 function epm_profiles()
-    local result, error_msg = exec_lpac_command("profile list", 20)  -- 20s for "lpac profile list"
+    local result, error_msg = exec_lpac_command("profile list", 90)  -- 20s for "lpac profile list"
 
     if not result then
         luci.http.prepare_content("application/json")
@@ -373,7 +373,7 @@ function epm_download_profile()
         cmd_args = cmd_args .. " -c " .. util.shellquote(confirmation_code)
     end
 
-    local result, error_msg = exec_lpac_command(cmd_args, 90)
+    local result, error_msg = exec_lpac_command(cmd_args, 600)
 
     if result then
         local function parse_lpac_output(raw_output)
