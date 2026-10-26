@@ -1,0 +1,11 @@
+#!/bin/sh
+# GL-E750V2 (Quectel EM060K-GL, прошивка A09): AT+CGLA обрывает длинную
+# ES10b.AuthenticateServer голым ERROR через ~3 с, а AT+CSIM работает
+# (так же ходит стоковая LPA GL.iNet). Переводим режим "AT" вкладки eSIM
+# 5gmodem на драйвер lpac at_csim. Регистр hex исправлен патчем
+# packages/lpac/patches/0001-at-csim-uppercase-hex.patch.
+F=/usr/share/5gmodem/esim.sh
+[ -f "$F" ] || exit 0
+grep -q 'LPAC_APDU=at_csim LPAC_APDU_AT_DEVICE=\$PORT' "$F" && exit 0
+sed -i 's|LPAC_APDU=at LPAC_APDU_AT_DEVICE=\$PORT|LPAC_APDU=at_csim LPAC_APDU_AT_DEVICE=$PORT|' "$F"
+exit 0
